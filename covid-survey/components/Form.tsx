@@ -42,16 +42,7 @@ export default function Form() {
               </Radio>
             </Radio.Group>
           </FormControl>
-          <FormControl>
-            <FormControl.Label>Choose Applied Vaccine Type:</FormControl.Label>
-            <Select placeholder="Choose Vaccine Type" value={appliedVacc}
-                onChange={value => {setAppliedVacc(value);}}>
-                  <Select.Item label="BionTech" value="1" />
-                  <Select.Item label="MODERNA" value="2" />
-                  <Select.Item label="Johnson & Johnson" value="3" />
-                  <Select.Item label="Astra Zenica" value="4" />
-            </Select>
-          </FormControl>
+
 
           <FormControl>
             <FormControl.Label>Have you had Covid-19 vaccination before?</FormControl.Label>
@@ -67,28 +58,40 @@ export default function Form() {
           </FormControl>
           {hadVaccine && (
               <Box >
-              <FormControl>
-                <FormControl.Label>Have you experienced any side effects from Covid-19 vaccination? Please explain.</FormControl.Label>
-                <Input />
-              </FormControl>
-              <FormControl mt="10">
-                <FormControl.Label>Have you had your 3rd Covid-19 vaccination?</FormControl.Label>
-                <Radio.Group
-                    onChange={value => {setHadThird(value == "1" ? true : false);}}>
-                  <Radio value="1" my="1">
-                    Yes
-                  </Radio>
-                  <Radio value="-1" my="1">
-                    No
-                  </Radio>
-                </Radio.Group>
-              </FormControl>
-              {hadThird && (
-                <FormControl mt="10">
-                  <FormControl.Label>Have you had any PCR positive cases or Covid-19 symptoms after 3rd vaccination? Please explain.</FormControl.Label>
-                  <Input />
-                </FormControl>
-              )}
+
+                  <FormControl>
+                      <FormControl.Label>Choose Applied Vaccine Type:</FormControl.Label>
+                      <Select placeholder="Choose Vaccine Type" value={appliedVacc}
+                              onChange={value => {setAppliedVacc(value);}}>
+                          <Select.Item label="BionTech" value="1" />
+                          <Select.Item label="MODERNA" value="2" />
+                          <Select.Item label="Johnson & Johnson" value="3" />
+                          <Select.Item label="Astra Zenica" value="4" />
+                      </Select>
+                  </FormControl>
+
+                  <FormControl mt="10">
+                    <FormControl.Label>Have you experienced any side effects from Covid-19 vaccination? Please explain.</FormControl.Label>
+                    <Input />
+                  </FormControl>
+                  <FormControl mt="10">
+                    <FormControl.Label>Have you had your 3rd Covid-19 vaccination?</FormControl.Label>
+                    <Radio.Group
+                        onChange={value => {setHadThird(value == "1" ? true : false);}}>
+                      <Radio value="1" my="1">
+                        Yes
+                      </Radio>
+                      <Radio value="-1" my="1">
+                        No
+                      </Radio>
+                    </Radio.Group>
+                  </FormControl>
+                  {hadThird && (
+                    <FormControl mt="10">
+                      <FormControl.Label>Have you had any PCR positive cases or Covid-19 symptoms after 3rd vaccination? Please explain.</FormControl.Label>
+                      <Input />
+                    </FormControl>
+                  )}
               </Box>
           )}
 
