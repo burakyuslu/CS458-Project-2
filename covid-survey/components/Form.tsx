@@ -5,6 +5,12 @@ import {db} from "../../db/firestore";
 
 export default function Form() {
 
+    const errorTexts = {
+        "missingField": "There are missing fields. Please fill the empty fields.",
+        "invalidInput": " ",
+        "success": "Successful send."
+    };
+
     const [sendOpen, setSendOpen] = useState(true);
     const [hadVaccine, setHadVaccine] = useState(false);
     const [hadThird, setHadThird] = useState(false);
@@ -13,17 +19,27 @@ export default function Form() {
     const [gender, setGender] = useState("0");
     const [appliedVacc, setAppliedVacc] = useState("0");
     const [birthdate, setBirthdate] = useState("")
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     const createParticipant = async () => {
-        db.collection("participants").add({
-            hadVaccine: hadVaccine,
-            hadThird: hadThird,
-            name: name,
-            city: city,
-            gender: gender,
-            appliedVacc: appliedVacc,
-            birthdate: birthdate
-        });
+        // empty field
+        if(name.length === 0 || birthdate.length == 0 || city.length == 0 || gender.length == 0 ) {
+            return setErrorMessage(errorTexts["missingField"]);
+            console.log(errorTexts["missingField"]);
+        }
+        else {
+            db.collection("participants").add({
+                hadVaccine: hadVaccine,
+                hadThird: hadThird,
+                name: name,
+                city: city,
+                gender: gender,
+                appliedVacc: appliedVacc,
+                birthdate: birthdate
+            });
+            setErrorMessage(errorTexts["success"]);
+        }
     };
 
     return (
