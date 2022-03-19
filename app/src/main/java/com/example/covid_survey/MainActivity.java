@@ -1,9 +1,12 @@
 package com.example.covid_survey;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,7 +15,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
-import java.util.Hashtable;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText historyET;
 
     private Button sendButton;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,22 +68,33 @@ public class MainActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
-                Hashtable<String, String> dict = getAllFields();
-                if(dict == null){
+                Map<String, String> participant = getAllFields();
+                if(participant == null){
                     //error message
                     System.out.println("EMPTY FIELDS");
                 } else {
                     //send to db
-                    System.out.println("\nIs my dictionary empty? : " + dict.isEmpty() + "\n");
-                    System.out.println("\nSize of my_dict : " + dict.size());
-                    System.out.println(dict.toString());
+                    System.out.println(participant.toString());
+                    db.collection("participants")
+                            .add(participant)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
                 }
             }
         });
     }
 
-    public Hashtable<String, String> getAllFields() {
-        Hashtable<String, String> dict = new Hashtable<String, String>();
+    public Map<String, String> getAllFields() {
 
         String nameValue = nameET.getText().toString();
         String birthdayValue = birthdayET.getText().toString();
@@ -88,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 || vaccValue.equals("-") || thirdVaccValue.equals("-") || selectedVaccine.equals("-");
         if(missingField)
             return null;
-
+        Map<String, String> dict = new HashMap<String, String>();
         dict.put("name", nameValue);
         dict.put("birthday", birthdayValue);
         dict.put("city", cityValue);
@@ -99,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
         dict.put("hadThird", thirdVaccValue);
         dict.put("history", historyValue);
         return dict;
+        //return new Participant(nameValue, birthdayValue, cityValue, genderValue, vaccValue,
+               // selectedVaccine, sideEffectValue, thirdVaccValue, historyValue);
     }
 
     public String getRadioGenderChecked() {
