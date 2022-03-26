@@ -1,15 +1,20 @@
 package com.example.covid_survey;
 
 
+import android.widget.EditText;
+
 import java.net.MalformedURLException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -56,15 +61,76 @@ public class FirstTest {
 
     }
 
+
     @Test
-    public void checkForDifferentAndroidVersions() {
+    public void checkForValidInput() {
 
 
         // Click on DELETE/CLR button to clear result text box before running test.
-        driver.findElements(By.xpath("//android.widget.Button")).get(0).click();
+        WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
+        nameTextField.sendKeys("sample_name_1");
 
-        // Click on number 2 button.
-        driver.findElement(By.name("7")).click();
+        WebElement birthdayTextField = driver.findElements(By.id("R.id.editTextDate")).get(0);
+        birthdayTextField.sendKeys("01/01/2022");
+
+        WebElement cityTextField = driver.findElements(By.id("R.id.city")).get(0);
+        cityTextField.sendKeys("test_city_1");
+
+        WebElement sideEffectTextField = driver.findElements(By.id("R.id.sideEffects")).get(0);
+        sideEffectTextField.sendKeys("cancer_1");
+
+        WebElement historyTextField = driver.findElements(By.id("R.id.history")).get(0);
+        historyTextField.sendKeys("history_1");
+
+        WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
+        sendButton.click();
+
+
+        // todo add message for acceptance of input
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.message")).get(0);
+
+        String feedbackMessageText = feedbackMessage.getText();
+
+        Assert.assertEquals("Accept", feedbackMessageText);
+
+
+        driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+    }
+
+
+    // todo add invalid data
+
+    @Test
+    public void checkForInvalidInput() {
+
+
+        // Click on DELETE/CLR button to clear result text box before running test.
+        WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
+        nameTextField.sendKeys("");
+
+        WebElement birthdayTextField = driver.findElements(By.id("R.id.editTextDate")).get(0);
+        birthdayTextField.sendKeys("");
+
+        WebElement cityTextField = driver.findElements(By.id("R.id.city")).get(0);
+        cityTextField.sendKeys("");
+
+        WebElement sideEffectTextField = driver.findElements(By.id("R.id.sideEffects")).get(0);
+        sideEffectTextField.sendKeys("");
+
+        WebElement historyTextField = driver.findElements(By.id("R.id.history")).get(0);
+        historyTextField.sendKeys("");
+
+        WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
+        sendButton.click();
+
+
+        // todo add message for fail condition of input
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.message")).get(0);
+
+        String feedbackMessageText = feedbackMessage.getText();
+
+        Assert.assertEquals("Failed", feedbackMessageText);
+
 
         driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
     }
