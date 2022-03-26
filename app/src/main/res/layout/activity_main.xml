@@ -181,17 +181,21 @@
                     android:id="@+id/thirdYes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:onClick="onThirdClicked"
+                />
 
                 <RadioButton
                     android:id="@+id/thirdNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No" />
+                    android:text="No"
+                    android:onClick="onThirdClicked"
+                />
             </RadioGroup>
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textViewHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/history"

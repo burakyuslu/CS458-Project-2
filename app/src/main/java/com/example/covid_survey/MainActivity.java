@@ -14,42 +14,41 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Spinner spinner;
     private EditText nameET;
     private EditText birthdayET;
     private EditText cityET;
     private String selectedVaccine = "-";
     private EditText sideEffectET;
     private EditText historyET;
+    private TextView historyTW;
 
-    private Button sendButton;
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private List<Object> database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         nameET = (EditText) findViewById(R.id.editTextName);
         birthdayET = (EditText) findViewById(R.id.editTextDate);
         cityET = (EditText) findViewById(R.id.city);
         sideEffectET = (EditText) findViewById(R.id.sideEffects);
         historyET = (EditText) findViewById(R.id.history);
+        historyTW = (TextView) findViewById(R.id.textViewHistory);
+        // make history question invisible until yes is selected in question
+        historyET.setVisibility(View.INVISIBLE);
+        historyTW.setVisibility(View.INVISIBLE);
 
-        sendButton = (Button) findViewById(R.id.send);
+        Button sendButton = (Button) findViewById(R.id.send);
 
         // fill in spinner info
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -75,20 +74,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     //send to db
                     System.out.println(participant.toString());
-                    db.collection("participants")
-                            .add(participant)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error adding document", e);
-                                }
-                            });
+                    if( database.contains(participant)) {
+                        System.out.println("DUPLICATE DATA");
+                    }
+                    else {
+                        database.add(participant);
+                        System.out.println("Participant added. ");
+                    }
                 }
             }
         });
@@ -121,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
         dict.put("hadThird", thirdVaccValue);
         dict.put("history", historyValue);
         return dict;
-        //return new Participant(nameValue, birthdayValue, cityValue, genderValue, vaccValue,
-               // selectedVaccine, sideEffectValue, thirdVaccValue, historyValue);
     }
 
     public String getRadioGenderChecked() {
@@ -170,4 +160,17 @@ public class MainActivity extends AppCompatActivity {
             return "-";
     }
 
+    public void onThirdClicked(View view) {
+        // Is the button now checked?
+        boolean yesChecked = ((RadioButton) findViewById(R.id.thirdYes)).isChecked();
+        boolean noChecked = ((RadioButton) findViewById(R.id.thirdNo)).isChecked();
+        if(yesChecked) {
+            historyET.setVisibility(View.VISIBLE);
+            historyTW.setVisibility(View.VISIBLE);
+        }
+        if (noChecked) {
+            historyET.setVisibility(View.INVISIBLE);
+            historyTW.setVisibility(View.INVISIBLE);
+        }
+    }
 }
