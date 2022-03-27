@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText sideEffectET;
     private EditText historyET;
     private TextView historyTW;
+    private TextView errorText;
 
     private List<Object> database;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         sideEffectET = (EditText) findViewById(R.id.sideEffects);
         historyET = (EditText) findViewById(R.id.history);
         historyTW = (TextView) findViewById(R.id.textViewHistory);
+        errorText = (TextView) findViewById(R.id.errorText);
+
         // make history question invisible until yes is selected in question
         historyET.setVisibility(View.INVISIBLE);
         historyTW.setVisibility(View.INVISIBLE);
@@ -71,15 +74,18 @@ public class MainActivity extends AppCompatActivity {
                 if(participant == null){
                     //error message
                     System.out.println("EMPTY FIELDS");
+                    errorText.setText("All fields need to be filled.");
                 } else {
                     //send to db
                     System.out.println(participant.toString());
                     if( database.contains(participant)) {
                         System.out.println("DUPLICATE DATA");
+                        errorText.setText("You have send your response already!");
                     }
                     else {
                         database.add(participant);
                         System.out.println("Participant added. ");
+                        errorText.setText("Your response has been send!");
                     }
                 }
             }
@@ -98,8 +104,9 @@ public class MainActivity extends AppCompatActivity {
         String thirdVaccValue = getRadioThirdVaccChecked();
 
         boolean missingField = nameValue.isEmpty() || birthdayValue.isEmpty() || cityValue.isEmpty()
-                || sideEffectValue.isEmpty() || historyValue.isEmpty() || genderValue.equals("-")
-                || vaccValue.equals("-") || thirdVaccValue.equals("-") || selectedVaccine.equals("-");
+                || sideEffectValue.isEmpty() || genderValue.equals("-")
+                || vaccValue.equals("-") || thirdVaccValue.equals("-") || selectedVaccine.equals("-")
+                || (thirdVaccValue.equals("yes") && historyValue.isEmpty()) ;
         if(missingField)
             return null;
         Map<String, String> dict = new HashMap<String, String>();
