@@ -8,12 +8,14 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="362dp"
-        android:layout_height="599dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="379dp"
+        android:layout_height="632dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/send"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,6 +23,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="#F44336"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -181,17 +192,19 @@
                     android:id="@+id/thirdYes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="onThirdClicked"
                     android:text="Yes" />
 
                 <RadioButton
                     android:id="@+id/thirdNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="onThirdClicked"
                     android:text="No" />
             </RadioGroup>
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textViewHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/history"
@@ -214,11 +227,11 @@
         android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:enabled="true"
         android:text="SEND"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

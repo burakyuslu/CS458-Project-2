@@ -36,12 +36,12 @@
         "source": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\build\\intermediates\\merged_res\\debug\\mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.webp"
-    },
-    {
         "merged": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\build\\intermediates\\merged_res\\debug\\mipmap-hdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\build\\intermediates\\merged_res\\debug\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
         "merged": "C:\\Users\\cankirsallioba\\Desktop\\Bilkent\\4.year\\2.term\\CS458\\CS458-Project-2\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",

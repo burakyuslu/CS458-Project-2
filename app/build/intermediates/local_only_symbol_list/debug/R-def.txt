@@ -13,6 +13,7 @@ drawable ic_launcher_foreground
 id city
 id editTextDate
 id editTextName
+id errorText
 id female
 id gender
 id history
@@ -30,7 +31,7 @@ id textView5
 id textView6
 id textView7
 id textView8
-id textView9
+id textViewHistory
 id thirdNo
 id thirdVacc
 id thirdYes
@@ -41,16 +42,9 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
 string appliedVacc
-string default_web_client_id
-string gcm_defaultSenderId
-string google_api_key
-string google_app_id
-string google_crash_reporting_api_key
-string google_storage_bucket
 string hadVacc
 string history
 string multiline
-string project_id
 string sideEffects
 string spinner
 string thirdVacc
