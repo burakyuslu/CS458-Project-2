@@ -31,7 +31,7 @@ public class FirstTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         // Set android deviceName desired capability. Set your device name.
-        capabilities.setCapability("deviceName", "XT1562");
+        capabilities.setCapability("Pixel XL API 32", "XT1562");
 
         // Set BROWSER_NAME desired capability. It's Android in our case here.
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "Android");
@@ -65,7 +65,7 @@ public class FirstTest {
     @Test
     public void checkForValidInput() {
 
-
+        System.out.println("First Test: Checking for valid inputs started.");
         // Click on DELETE/CLR button to clear result text box before running test.
         WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
         nameTextField.sendKeys("sample_name_1");
@@ -93,6 +93,7 @@ public class FirstTest {
 
         Assert.assertEquals("Accept", feedbackMessageText);
 
+        System.out.println("First Test: Checking for valid inputs finished.");
 
         driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
     }
@@ -103,6 +104,7 @@ public class FirstTest {
     @Test
     public void checkForInvalidInput() {
 
+        System.out.println("First Test: Checking for invalid inputs started.");
 
         // Click on DELETE/CLR button to clear result text box before running test.
         WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
@@ -131,6 +133,7 @@ public class FirstTest {
 
         Assert.assertEquals("Failed", feedbackMessageText);
 
+        System.out.println("First Test: Checking for invalid inputs finished.");
 
         driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
     }
