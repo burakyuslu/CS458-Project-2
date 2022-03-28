@@ -76,7 +76,7 @@ public class FirstTest {
         WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
         sendButton.click();
 
-        WebElement feedbackMessage = driver.findElements(By.id("R.id.error_text")).get(0);
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.errorText")).get(0);
 
         String feedbackMessageText = feedbackMessage.getText();
 
@@ -120,7 +120,7 @@ public class FirstTest {
         WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
         sendButton.click();
 
-        WebElement feedbackMessage = driver.findElements(By.id("R.id.error_text")).get(0);
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.errorText")).get(0);
 
         String feedbackMessageText = feedbackMessage.getText();
 
