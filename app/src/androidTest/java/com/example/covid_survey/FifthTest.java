@@ -27,75 +27,58 @@ public class FifthTest {
 
     @Before
     public void setUp() throws MalformedURLException {
-        // Created object of DesiredCapabilities class.
+        System.out.println("Setting up the process...");
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        // Set android deviceName desired capability. Set your device name.
-        capabilities.setCapability("deviceName", "XT1562");
-
-        // Set BROWSER_NAME desired capability. It's Android in our case here.
+        capabilities.setCapability("deviceName", "Pixel_3a_API_29");
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "Android");
-
-        // Set android VERSION desired capability. Set your mobile device's OS version.
-        capabilities.setCapability(CapabilityType.VERSION, "6.0.1");
-
-        // Set android platformName desired capability. It's Android in our case here.
+        capabilities.setCapability(CapabilityType.VERSION, "10.0");
         capabilities.setCapability("platformName", "Android");
-
-        // Set android appPackage desired capability. It is
-        // com.android.calculator2 for calculator application.
-        // Set your application's appPackage if you are using any other app.
-        capabilities.setCapability("appPackage", "com.android.calculator2");
-
-        // Set android appActivity desired capability. It is
-        // com.android.calculator2.Calculator for calculator application.
-        // Set your application's appPackage if you are using any other app.
-        capabilities.setCapability("appActivity", "com.android.calculator2.Calculator");
-
-        // Created object of RemoteWebDriver will all set capabilities.
-        // Set appium server address and port number in URL string.
-        // It will launch calculator app in android device.
-        driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        capabilities.setCapability("appPackage", "com.example.covid_survey");
+        capabilities.setCapability("appActivity", "com.example.covid_survey.MainActivity");
+        driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723"), capabilities);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
-
     }
 
 
     @Test
     public void checkForValidInputWithWrongOrder() {
 
-
-        WebElement cityTextField = driver.findElements(By.id("R.id.city")).get(0);
-        cityTextField.sendKeys("test_city_1");
-
-        WebElement sideEffectTextField = driver.findElements(By.id("R.id.sideEffects")).get(0);
-        sideEffectTextField.sendKeys("cancer_1");
-
-        WebElement historyTextField = driver.findElements(By.id("R.id.history")).get(0);
-        historyTextField.sendKeys("history_1");
-
-        // Click on DELETE/CLR button to clear result text box before running test.
         WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
-        nameTextField.sendKeys("sample_name_1");
+        nameTextField.sendKeys("example_name example_surname");
 
         WebElement birthdayTextField = driver.findElements(By.id("R.id.editTextDate")).get(0);
-        birthdayTextField.sendKeys("01/01/2022");
+        birthdayTextField.sendKeys("01/01/2000");
 
+        WebElement cityTextField = driver.findElements(By.id("R.id.city")).get(0);
+        cityTextField.sendKeys("Ankara");
+
+        WebElement male_radio = driver.findElements(By.id("R.id.male")).get(0);
+        male_radio.click();
+
+        WebElement vacc_radio = driver.findElements(By.id("R.id.vaccYes")).get(0);
+        vacc_radio.click();
+
+        WebElement sideEffectTextField = driver.findElements(By.id("R.id.sideEffects")).get(0);
+        sideEffectTextField.sendKeys("No");
+
+        WebElement third_vacc_radio = driver.findElements(By.id("R.id.thirdNo")).get(0);
+        third_vacc_radio.click();
+
+        WebElement historyTextField = driver.findElements(By.id("R.id.history")).get(0);
+
+        Assert.assertEquals("", historyTextField.getText());
 
         WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
         sendButton.click();
 
-
-        // todo add message for acceptance of input
-        WebElement feedbackMessage = driver.findElements(By.id("R.id.message")).get(0);
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.error_text")).get(0);
 
         String feedbackMessageText = feedbackMessage.getText();
 
-        Assert.assertEquals("Fail", feedbackMessageText);
+        Assert.assertEquals("Your response has been send!", feedbackMessageText);
 
-
-        driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
     }
 
 

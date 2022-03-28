@@ -30,138 +30,153 @@ public class FirstTest {
 
     @Before
     public void setUp() throws MalformedURLException {
-
         System.out.println("Setting up the process...");
 
-        // Created object of DesiredCapabilities class.
         DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        // Set android deviceName desired capability. Set your device name.
         capabilities.setCapability("deviceName", "Pixel_3a_API_29");
-
-        System.out.println("bruh1.1");
-
-        // Set BROWSER_NAME desired capability. It's Android in our case here.
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "Android");
-
-        // Set android VERSION desired capability. Set your mobile device's OS version.
         capabilities.setCapability(CapabilityType.VERSION, "10.0");
-
-        System.out.println("bruh1.2");
-
-
-        // Set android platformName desired capability. It's Android in our case here.
         capabilities.setCapability("platformName", "Android");
-
-        // Set android appPackage desired capability. It is
-        // com.android.calculator2 for calculator application.
-        // Set your application's appPackage if you are using any other app.
         capabilities.setCapability("appPackage", "com.example.covid_survey");
-
-        System.out.println("bruh1.3");
-
-        // Set android appActivity desired capability. It is
-        // com.android.calculator2.Calculator for calculator application.
-        // Set your application's appPackage if you are using any other app.
         capabilities.setCapability("appActivity", "com.example.covid_survey.MainActivity");
-
-
-        System.out.println("bruh1.4");
-        //driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-
-        // Created object of RemoteWebDriver will all set capabilities.
-        // Set appium server address and port number in URL string.
-        // It will launch calculator app in android device.
         driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723"), capabilities);
-        System.out.println("bruh1.5");
-
-        //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
 
 
     @Test
-    public void checkForValidInput() {
+    public void checkForValidInput1() {
 
         System.out.println("First Test: Checking for valid inputs started.");
-        // Click on DELETE/CLR button to clear result text box before running test.
+
         WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
-        nameTextField.sendKeys("sample_name_1");
+        nameTextField.sendKeys("example_name example_surname");
 
         WebElement birthdayTextField = driver.findElements(By.id("R.id.editTextDate")).get(0);
-        birthdayTextField.sendKeys("01/01/2022");
+        birthdayTextField.sendKeys("01/01/2000");
 
         WebElement cityTextField = driver.findElements(By.id("R.id.city")).get(0);
-        cityTextField.sendKeys("test_city_1");
+        cityTextField.sendKeys("Ankara");
+
+        WebElement male_radio = driver.findElements(By.id("R.id.male")).get(0);
+        male_radio.click();
+
+        WebElement vacc_radio = driver.findElements(By.id("R.id.vaccYes")).get(0);
+        vacc_radio.click();
 
         WebElement sideEffectTextField = driver.findElements(By.id("R.id.sideEffects")).get(0);
-        sideEffectTextField.sendKeys("cancer_1");
+        sideEffectTextField.sendKeys("No");
+
+        WebElement third_vacc_radio = driver.findElements(By.id("R.id.thirdYes")).get(0);
+        third_vacc_radio.click();
 
         WebElement historyTextField = driver.findElements(By.id("R.id.history")).get(0);
-        historyTextField.sendKeys("history_1");
+        historyTextField.sendKeys("Yes");
 
         WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
         sendButton.click();
 
-
-        // todo add message for acceptance of input
-        WebElement feedbackMessage = driver.findElements(By.id("R.id.message")).get(0);
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.error_text")).get(0);
 
         String feedbackMessageText = feedbackMessage.getText();
 
-        Assert.assertEquals("Accept", feedbackMessageText);
+        Assert.assertEquals("Your response has been send!", feedbackMessageText);
 
         System.out.println("First Test: Checking for valid inputs finished.");
 
-        driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
     }
 
+    @Test
+    public void checkForValidInput2() {
 
-    // todo add invalid data
+        System.out.println("First Test: Checking for valid inputs started.");
+
+        WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
+        nameTextField.sendKeys("example_name example_surname");
+
+        WebElement birthdayTextField = driver.findElements(By.id("R.id.editTextDate")).get(0);
+        birthdayTextField.sendKeys("01/01/2000");
+
+        WebElement cityTextField = driver.findElements(By.id("R.id.city")).get(0);
+        cityTextField.sendKeys("Ankara");
+
+        WebElement male_radio = driver.findElements(By.id("R.id.male")).get(0);
+        male_radio.click();
+
+        WebElement vacc_radio = driver.findElements(By.id("R.id.vaccYes")).get(0);
+        vacc_radio.click();
+
+        WebElement sideEffectTextField = driver.findElements(By.id("R.id.sideEffects")).get(0);
+        sideEffectTextField.sendKeys("No");
+
+        WebElement third_vacc_radio = driver.findElements(By.id("R.id.thirdNo")).get(0);
+        third_vacc_radio.click();
+
+        // Does not apply because user did not have the third vaccination
+        //WebElement historyTextField = driver.findElements(By.id("R.id.history")).get(0);
+        //historyTextField.sendKeys("Yes");
+
+        WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
+        sendButton.click();
+
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.error_text")).get(0);
+
+        String feedbackMessageText = feedbackMessage.getText();
+
+        Assert.assertEquals("Your response has been send!", feedbackMessageText);
+
+        System.out.println("First Test: Checking for valid inputs finished.");
+
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+    }
+
 
     @Test
     public void checkForInvalidInput() {
 
         System.out.println("First Test: Checking for invalid inputs started.");
 
-        // Click on DELETE/CLR button to clear result text box before running test.
         WebElement nameTextField = driver.findElements(By.id("R.id.editTextName")).get(0);
-        nameTextField.sendKeys("");
+        nameTextField.sendKeys("123");
 
         WebElement birthdayTextField = driver.findElements(By.id("R.id.editTextDate")).get(0);
-        birthdayTextField.sendKeys("");
+        birthdayTextField.sendKeys("01/01/2000");
 
         WebElement cityTextField = driver.findElements(By.id("R.id.city")).get(0);
-        cityTextField.sendKeys("");
+        cityTextField.sendKeys("Ankara");
+
+        WebElement male_radio = driver.findElements(By.id("R.id.male")).get(0);
+        male_radio.click();
+
+        WebElement vacc_radio = driver.findElements(By.id("R.id.vaccYes")).get(0);
+        vacc_radio.click();
 
         WebElement sideEffectTextField = driver.findElements(By.id("R.id.sideEffects")).get(0);
-        sideEffectTextField.sendKeys("");
+        sideEffectTextField.sendKeys("No");
+
+        WebElement third_vacc_radio = driver.findElements(By.id("R.id.thirdYes")).get(0);
+        third_vacc_radio.click();
 
         WebElement historyTextField = driver.findElements(By.id("R.id.history")).get(0);
-        historyTextField.sendKeys("");
+        historyTextField.sendKeys("Yes");
 
         WebElement sendButton = driver.findElements(By.id("R.id.send")).get(0);
         sendButton.click();
 
-
-        // todo add message for fail condition of input
-        WebElement feedbackMessage = driver.findElements(By.id("R.id.message")).get(0);
+        WebElement feedbackMessage = driver.findElements(By.id("R.id.errorText")).get(0);
 
         String feedbackMessageText = feedbackMessage.getText();
 
-        Assert.assertEquals("Failed", feedbackMessageText);
+        Assert.assertEquals("Invalid input!", feedbackMessageText);
 
         System.out.println("First Test: Checking for invalid inputs finished.");
 
-        driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
     }
 
     @After
     public void End() {
-
-
-        System.out.println("bruh2");
-
         driver.quit();
     }
 }

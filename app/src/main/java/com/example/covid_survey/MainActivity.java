@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 // Do something in response to button click
                 Map<String, String> participant = getAllFields();
                 if(participant == null){
@@ -78,14 +80,19 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     //send to db
                     System.out.println(participant.toString());
-                    if( database.contains(participant)) {
+                    if (database.contains(participant)) {
                         System.out.println("DUPLICATE DATA");
                         errorText.setText("You have send your response already!");
-                    }
-                    else {
-                        database.add(participant);
-                        System.out.println("Participant added. ");
-                        errorText.setText("Your response has been send!");
+                    } else {
+                        if (nameET.getText().toString().matches("[0-9]+")) {
+                            System.out.println("INVALID INPUT");
+                            errorText.setText("Invalid input!");
+                        } else {
+                            database.add(participant);
+                            System.out.println("Participant added. ");
+                            errorText.setText("Your response has been send!");
+                        }
+
                     }
                 }
             }
