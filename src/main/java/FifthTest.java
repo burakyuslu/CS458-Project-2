@@ -62,7 +62,7 @@ public class FifthTest {
 
 
     @Test
-    public void checkForValidInputWithWrongOrder() {
+    public void checkForVisibleHistory() {
         System.out.println("Test 5c: Checking for visible history section started.");
 
         helper.fillShortForm();
