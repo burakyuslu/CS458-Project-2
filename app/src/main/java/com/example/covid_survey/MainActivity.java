@@ -254,11 +254,16 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isStringValid(String s)
     {
         int len = s.length();
+        int sCount = 0;
         for (int i = 0; i < len; i++) {
             if (!(Character.isLetter(s.charAt(i))) && !(s.charAt(i) == ' ')) {
                 return false;
             }
+            if(s.charAt(i) == ' ')
+                sCount++;
         }
+        if( sCount == len)
+            return false;
         return true;
     }
 
