@@ -83,6 +83,16 @@ public class FirstTest {
         feedbackMessageText = helper.getErrorMessage();
 
         Assert.assertEquals("Name field is invalid.", feedbackMessageText);
+       
+        driver.manage().timeouts().implicitlyWait(250,TimeUnit.MILLISECONDS);
+
+        helper.fillNameField(" ");
+
+        helper.clickSend();
+        driver.manage().timeouts().implicitlyWait(250,TimeUnit.MILLISECONDS);
+        feedbackMessageText = helper.getErrorMessage();
+
+        Assert.assertEquals("Name field is invalid.", feedbackMessageText);
     }
 
     @Test
