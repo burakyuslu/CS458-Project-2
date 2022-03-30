@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Helper {
     private AndroidDriver driver;
-    private final String[] exampleInput = {"example_name example_surname", "01-01-2000", "Ankara", "No", "Yes"};
+    private final String[] exampleInput = {"exampleName exampleSurname", "01-01-2000", "Ankara", "No", "Yes"};
 
     public Helper(AndroidDriver driver) {
         this.driver = driver;
