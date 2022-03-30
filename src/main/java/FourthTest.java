@@ -21,7 +21,7 @@ public class FourthTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Android Emulator");
         capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("platformVersion", "8.0");
+        capabilities.setCapability("platformVersion", "12.0");
 
         capabilities.setCapability(MobileCapabilityType.APP, "src/main/resources/app-debug.apk");
 
