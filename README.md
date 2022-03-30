@@ -1,5 +1,4 @@
-# CS458-Project-2 TESTING
-Project 2 for CS 458: TESTING PART
+# CS458-Project-2 MOBILE APPLICATION TESTING USING APPIUM
 
 This branch (main-MobileTesting) includes the app apk generated from the android branch. One can generate the same apk using Android Studio using the code from the android branch of this repository.
 
